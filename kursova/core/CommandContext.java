@@ -4,10 +4,14 @@ public class CommandContext {
 
     private boolean fileOpened;
     private String currentFileName;
+    private boolean running;
+    private boolean fileModified;
 
     public CommandContext() {
         fileOpened = false;
         currentFileName = null;
+        running = true;
+        fileModified = false;
     }
 
     public boolean isFileOpened() {
@@ -24,5 +28,21 @@ public class CommandContext {
 
     public void setCurrentFileName(String currentFileName) {
         this.currentFileName = currentFileName;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public boolean isFileModified() {
+        return fileModified;
+    }
+
+    public void setFileModified(boolean fileModified) {
+        this.fileModified = fileModified;
     }
 }
