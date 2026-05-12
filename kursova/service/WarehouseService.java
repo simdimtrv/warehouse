@@ -21,6 +21,10 @@ public class WarehouseService {
         return items;
     }
 
+    public void setItems(List<WarehouseItem> items) {
+        this.items = items;
+    }
+
     public boolean isEmpty() {
         return items.isEmpty();
     }

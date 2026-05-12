@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import bg.tu_varna.sit.f24621686.warehouseproject.service.FileService;
 
 import java.time.LocalDate;
 
@@ -23,10 +24,16 @@ public class Application {
 
     private CommandContext context;
     private Scanner scanner;
+    private WarehouseService warehouseService;
+    private FileService fileService;
+
 
     public Application() {
         context = new CommandContext();
         scanner = new Scanner(System.in);
+        warehouseService = new WarehouseService();
+        fileService = new FileService();
+
     }
 
     public void start() {
@@ -103,25 +110,31 @@ public class Application {
     private void openFile(String input) {
 
         if (context.isFileOpened()) {
-            System.out.println("A file is already opened. Please close it first.");
+            System.out.println("A file is already opened.");
             return;
         }
 
         String fileName = input.substring(5);
 
+        warehouseService.setItems(
+                fileService.loadFromFile(fileName)
+        );
+
         context.setFileOpened(true);
         context.setCurrentFileName(fileName);
 
-        System.out.println("File " + fileName + " opened successfully.");
+        System.out.println("File opened successfully.");
     }
 
     private void closeFile() {
+
 
         if (!context.isFileOpened()) {
             System.out.println("No file is currently opened.");
             return;
         }
 
+        warehouseService.getItems().clear();
         context.setFileOpened(false);
         context.setCurrentFileName(null);
 
@@ -135,7 +148,12 @@ public class Application {
             return;
         }
 
-        System.out.println("File saved: " + context.getCurrentFileName());
+        fileService.saveToFile(
+                context.getCurrentFileName(),
+                warehouseService.getItems()
+        );
+
+        System.out.println("File saved successfully.");
     }
 
     private void saveAsFile(String input) {
@@ -147,9 +165,14 @@ public class Application {
 
         String newFileName = input.substring(7);
 
+        fileService.saveToFile(
+                newFileName,
+                warehouseService.getItems()
+        );
+
         context.setCurrentFileName(newFileName);
 
-        System.out.println("File saved as: " + newFileName);
+        System.out.println("File saved successfully.");
     }
 
     private void removeItem() {
