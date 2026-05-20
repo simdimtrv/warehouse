@@ -33,61 +33,71 @@ public class RemoveCommand {
             return;
         }
 
-        System.out.print("Product name: ");
-        String productName = scanner.nextLine();
+        try {
+            System.out.print("Product name: ");
+            String productName = scanner.nextLine().trim();
 
-        System.out.print("Quantity to remove: ");
-        double quantityToRemove = Double.parseDouble(scanner.nextLine());
-
-        if (quantityToRemove <= 0) {
-            System.out.println("Quantity must be positive.");
-            return;
-        }
-
-        List<WarehouseItem> matchingItems = new ArrayList<>();
-
-        for (WarehouseItem item : warehouseService.getItems()) {
-            if (item.getProduct().getName().equalsIgnoreCase(productName)) {
-                matchingItems.add(item);
+            if (productName.isEmpty()) {
+                System.out.println("Product name cannot be empty.");
+                return;
             }
-        }
 
-        if (matchingItems.isEmpty()) {
-            System.out.println("Product not found.");
-            return;
-        }
+            System.out.print("Quantity to remove: ");
+            double quantityToRemove = Double.parseDouble(scanner.nextLine());
 
-        Collections.sort(matchingItems, new Comparator<WarehouseItem>() {
-            @Override
-            public int compare(WarehouseItem first, WarehouseItem second) {
-                return first.getExpirationDate().compareTo(second.getExpirationDate());
-            }
-        });
-
-        double removedQuantity = 0;
-
-        for (WarehouseItem item : matchingItems) {
             if (quantityToRemove <= 0) {
-                break;
+                System.out.println("Quantity must be positive.");
+                return;
             }
 
-            if (item.getQuantity() <= quantityToRemove) {
-                quantityToRemove = quantityToRemove - item.getQuantity();
-                removedQuantity = removedQuantity + item.getQuantity();
-                item.setQuantity(0);
-            } else {
-                item.setQuantity(item.getQuantity() - quantityToRemove);
-                removedQuantity = removedQuantity + quantityToRemove;
-                quantityToRemove = 0;
+            List<WarehouseItem> matchingItems = new ArrayList<>();
+
+            for (WarehouseItem item : warehouseService.getItems()) {
+                if (item.getProduct().getName().equalsIgnoreCase(productName)) {
+                    matchingItems.add(item);
+                }
             }
-        }
 
-        removeEmptyItems();
+            if (matchingItems.isEmpty()) {
+                System.out.println("Product not found.");
+                return;
+            }
 
-        System.out.println("Removed quantity: " + removedQuantity);
+            Collections.sort(matchingItems, new Comparator<WarehouseItem>() {
+                @Override
+                public int compare(WarehouseItem first, WarehouseItem second) {
+                    return first.getExpirationDate().compareTo(second.getExpirationDate());
+                }
+            });
 
-        if (quantityToRemove > 0) {
-            System.out.println("Not enough quantity in warehouse.");
+            double removedQuantity = 0;
+
+            for (WarehouseItem item : matchingItems) {
+                if (quantityToRemove <= 0) {
+                    break;
+                }
+
+                if (item.getQuantity() <= quantityToRemove) {
+                    quantityToRemove = quantityToRemove - item.getQuantity();
+                    removedQuantity = removedQuantity + item.getQuantity();
+                    item.setQuantity(0);
+                } else {
+                    item.setQuantity(item.getQuantity() - quantityToRemove);
+                    removedQuantity = removedQuantity + quantityToRemove;
+                    quantityToRemove = 0;
+                }
+            }
+
+            removeEmptyItems();
+
+            System.out.println("Removed quantity: " + removedQuantity);
+
+            if (quantityToRemove > 0) {
+                System.out.println("Not enough quantity in warehouse.");
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format.");
         }
     }
 

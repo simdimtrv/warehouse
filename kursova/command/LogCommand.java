@@ -5,6 +5,7 @@ import bg.tu_varna.sit.f24621686.warehouseproject.model.WarehouseItem;
 import bg.tu_varna.sit.f24621686.warehouseproject.service.WarehouseService;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class LogCommand {
 
@@ -29,31 +30,41 @@ public class LogCommand {
             return;
         }
 
-        LocalDate fromDate = LocalDate.parse(parts[1]);
-        LocalDate toDate = LocalDate.parse(parts[2]);
+        try {
+            LocalDate fromDate = LocalDate.parse(parts[1]);
+            LocalDate toDate = LocalDate.parse(parts[2]);
 
-        boolean found = false;
-
-        for (WarehouseItem item : warehouseService.getItems()) {
-            boolean afterOrEqualFrom = item.getEntryDate().isEqual(fromDate)
-                    || item.getEntryDate().isAfter(fromDate);
-
-            boolean beforeOrEqualTo = item.getEntryDate().isEqual(toDate)
-                    || item.getEntryDate().isBefore(toDate);
-
-            if (afterOrEqualFrom && beforeOrEqualTo) {
-                System.out.println(
-                        item.getProduct().getName()
-                                + " | quantity: " + item.getQuantity()
-                                + " | entry date: " + item.getEntryDate()
-                );
-
-                found = true;
+            if (toDate.isBefore(fromDate)) {
+                System.out.println("The second date cannot be before the first date.");
+                return;
             }
-        }
 
-        if (!found) {
-            System.out.println("No products found in this period.");
+            boolean found = false;
+
+            for (WarehouseItem item : warehouseService.getItems()) {
+                boolean afterOrEqualFrom = item.getEntryDate().isEqual(fromDate)
+                        || item.getEntryDate().isAfter(fromDate);
+
+                boolean beforeOrEqualTo = item.getEntryDate().isEqual(toDate)
+                        || item.getEntryDate().isBefore(toDate);
+
+                if (afterOrEqualFrom && beforeOrEqualTo) {
+                    System.out.println(
+                            item.getProduct().getName()
+                                    + " | quantity: " + item.getQuantity()
+                                    + " | entry date: " + item.getEntryDate()
+                    );
+
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                System.out.println("No products found in this period.");
+            }
+
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date format. Use yyyy-mm-dd.");
         }
     }
 }
