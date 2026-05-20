@@ -6,7 +6,7 @@ import bg.tu_varna.sit.f24621686.warehouseproject.service.WarehouseService;
 /**
  * Closes currently opened file.
  */
-public class CloseCommand {
+public class CloseCommand implements Command {
 
     private CommandContext context;
     private WarehouseService warehouseService;
@@ -25,6 +25,7 @@ public class CloseCommand {
     /**
      * Closes currently opened file.
      */
+    @Override
     public void execute() {
         if (!context.isFileOpened()) {
             System.out.println("No file is currently opened.");

@@ -10,7 +10,7 @@ import bg.tu_varna.sit.f24621686.warehouseproject.service.WarehouseService;
 /**
  * Saves current warehouse data.
  */
-public class SaveCommand {
+public class SaveCommand implements Command {
 
     private CommandContext context;
     private WarehouseService warehouseService;
@@ -35,6 +35,7 @@ public class SaveCommand {
     /**
      * Saves current warehouse file.
      */
+    @Override
     public void execute() {
 
         try {

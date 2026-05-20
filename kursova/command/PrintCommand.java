@@ -8,7 +8,7 @@ import bg.tu_varna.sit.f24621686.warehouseproject.service.WarehouseService;
  * Reads product information from the console
  * and adds the product to the warehouse.
  */
-public class PrintCommand {
+public class PrintCommand implements Command{
 
     private CommandContext context;
     private WarehouseService warehouseService;
@@ -27,6 +27,7 @@ public class PrintCommand {
     /**
      * Prints warehouse information to the console.
      */
+    @Override
     public void execute() {
         if (!context.isFileOpened()) {
             System.out.println("Please open a file first.");

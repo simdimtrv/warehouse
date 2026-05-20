@@ -8,7 +8,7 @@ import bg.tu_varna.sit.f24621686.warehouseproject.service.WarehouseService;
 /**
  * Opens a warehouse file and loads its content.
  */
-public class OpenCommand {
+public class OpenCommand implements CommandWithInput{
 
     private CommandContext context;
     private WarehouseService warehouseService;
@@ -37,6 +37,7 @@ public class OpenCommand {
      *
      * @param input user command input
      */
+    @Override
     public void execute(String input) {
 
         try {

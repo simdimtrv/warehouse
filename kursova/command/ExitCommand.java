@@ -5,7 +5,7 @@ import bg.tu_varna.sit.f24621686.warehouseproject.core.CommandContext;
 /**
  * Stops the application.
  */
-public class ExitCommand {
+public class ExitCommand implements Command {
 
     private CommandContext context;
 
@@ -21,6 +21,7 @@ public class ExitCommand {
     /**
      * Stops program execution.
      */
+    @Override
     public void execute() {
         context.setRunning(false);
 

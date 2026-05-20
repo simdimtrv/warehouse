@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Shows products added in a selected period.
  */
-public class LogCommand {
+public class LogCommand implements CommandWithInput {
 
     private CommandContext context;
     private WarehouseService warehouseService;
@@ -31,6 +31,7 @@ public class LogCommand {
      *
      * @param input user command input
      */
+    @Override
     public void execute(String input) {
         if (!context.isFileOpened()) {
             System.out.println("Please open a file first.");

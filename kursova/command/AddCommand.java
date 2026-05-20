@@ -16,7 +16,7 @@ import java.util.Scanner;
 /**
  * Adds a new product batch to the warehouse.
  */
-public class AddCommand {
+public class AddCommand implements Command{
 
     private CommandContext context;
     private WarehouseService warehouseService;
@@ -39,6 +39,7 @@ public class AddCommand {
      * Reads product information from the console
      * and adds the product to the warehouse.
      */
+    @Override
     public void execute() {
         try {
             if (!context.isFileOpened()) {

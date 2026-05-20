@@ -10,7 +10,7 @@ import java.time.LocalDate;
 /**
  * Removes expired products from the warehouse.
  */
-public class CleanCommand {
+public class CleanCommand implements Command {
 
     private CommandContext context;
     private WarehouseService warehouseService;
@@ -29,6 +29,7 @@ public class CleanCommand {
     /**
      * Removes all expired products.
      */
+    @Override
     public void execute() {
         if (!context.isFileOpened()) {
             System.out.println("Please open a file first.");

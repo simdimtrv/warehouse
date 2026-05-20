@@ -15,7 +15,7 @@ import java.util.Scanner;
  * Removes quantity from a product.
  * Products with earlier expiration date are removed first.
  */
-public class RemoveCommand {
+public class RemoveCommand implements Command{
 
     private CommandContext context;
     private WarehouseService warehouseService;
@@ -37,6 +37,7 @@ public class RemoveCommand {
     /**
      * Removes product quantity from the warehouse.
      */
+    @Override
     public void execute() {
         if (!context.isFileOpened()) {
             System.out.println("Please open a file first.");

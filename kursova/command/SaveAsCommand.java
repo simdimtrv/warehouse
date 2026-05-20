@@ -10,7 +10,7 @@ import bg.tu_varna.sit.f24621686.warehouseproject.service.WarehouseService;
 /**
  * Saves warehouse data with another file name.
  */
-public class SaveAsCommand {
+public class SaveAsCommand implements CommandWithInput {
 
     private CommandContext context;
     private WarehouseService warehouseService;
@@ -37,6 +37,7 @@ public class SaveAsCommand {
      *
      * @param input user command input
      */
+    @Override
     public void execute(String input) {
 
         try {
