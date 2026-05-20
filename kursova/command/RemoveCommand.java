@@ -10,18 +10,33 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
+
+/**
+ * Removes quantity from a product.
+ * Products with earlier expiration date are removed first.
+ */
 public class RemoveCommand {
 
     private CommandContext context;
     private WarehouseService warehouseService;
     private Scanner scanner;
 
+    /**
+     * Creates RemoveCommand object.
+     *
+     * @param context current application state
+     * @param warehouseService warehouse manager
+     * @param scanner console scanner
+     */
     public RemoveCommand(CommandContext context, WarehouseService warehouseService, Scanner scanner) {
         this.context = context;
         this.warehouseService = warehouseService;
         this.scanner = scanner;
     }
 
+    /**
+     * Removes product quantity from the warehouse.
+     */
     public void execute() {
         if (!context.isFileOpened()) {
             System.out.println("Please open a file first.");
@@ -101,6 +116,9 @@ public class RemoveCommand {
         }
     }
 
+    /**
+     * Removes items with zero quantity from the warehouse list.
+     */
     private void removeEmptyItems() {
         for (int i = warehouseService.getItems().size() - 1; i >= 0; i--) {
             if (warehouseService.getItems().get(i).getQuantity() <= 0) {

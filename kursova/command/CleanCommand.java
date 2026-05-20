@@ -6,16 +6,29 @@ import bg.tu_varna.sit.f24621686.warehouseproject.service.WarehouseService;
 
 import java.time.LocalDate;
 
+
+/**
+ * Removes expired products from the warehouse.
+ */
 public class CleanCommand {
 
     private CommandContext context;
     private WarehouseService warehouseService;
 
+    /**
+     * Creates CleanCommand object.
+     *
+     * @param context current application state
+     * @param warehouseService warehouse manager
+     */
     public CleanCommand(CommandContext context, WarehouseService warehouseService) {
         this.context = context;
         this.warehouseService = warehouseService;
     }
 
+    /**
+     * Removes all expired products.
+     */
     public void execute() {
         if (!context.isFileOpened()) {
             System.out.println("Please open a file first.");

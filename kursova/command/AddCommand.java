@@ -12,18 +12,33 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+
+/**
+ * Adds a new product batch to the warehouse.
+ */
 public class AddCommand {
 
     private CommandContext context;
     private WarehouseService warehouseService;
     private Scanner scanner;
 
+    /**
+     * Creates AddCommand object.
+     *
+     * @param context current application state
+     * @param warehouseService warehouse manager
+     * @param scanner console scanner
+     */
     public AddCommand(CommandContext context, WarehouseService warehouseService, Scanner scanner) {
         this.context = context;
         this.warehouseService = warehouseService;
         this.scanner = scanner;
     }
 
+    /**
+     * Reads product information from the console
+     * and adds the product to the warehouse.
+     */
     public void execute() {
         try {
             if (!context.isFileOpened()) {

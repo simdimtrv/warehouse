@@ -1,17 +1,16 @@
 package bg.tu_varna.sit.f24621686.warehouseproject.exception;
 
-
 /**
- * Thrown when the user enters invalid data.
+ * Thrown when an unknown command is entered.
  */
-public class InvalidInputException extends Exception {
+public class InvalidCommandException extends Exception {
 
     /**
      * Creates an exception with a custom message.
      *
      * @param message error message
      */
-    public InvalidInputException(String message) {
+    public InvalidCommandException(String message) {
         super(message);
     }
 }

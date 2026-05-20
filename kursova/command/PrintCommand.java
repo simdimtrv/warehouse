@@ -4,16 +4,29 @@ import bg.tu_varna.sit.f24621686.warehouseproject.core.CommandContext;
 import bg.tu_varna.sit.f24621686.warehouseproject.model.WarehouseItem;
 import bg.tu_varna.sit.f24621686.warehouseproject.service.WarehouseService;
 
+/**
+ * Reads product information from the console
+ * and adds the product to the warehouse.
+ */
 public class PrintCommand {
 
     private CommandContext context;
     private WarehouseService warehouseService;
 
+    /**
+     * Creates PrintCommand object.
+     *
+     * @param context current application state
+     * @param warehouseService warehouse manager
+     */
     public PrintCommand(CommandContext context, WarehouseService warehouseService) {
         this.context = context;
         this.warehouseService = warehouseService;
     }
 
+    /**
+     * Prints warehouse information to the console.
+     */
     public void execute() {
         if (!context.isFileOpened()) {
             System.out.println("Please open a file first.");

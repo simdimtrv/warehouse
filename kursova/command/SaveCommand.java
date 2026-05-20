@@ -6,12 +6,23 @@ import bg.tu_varna.sit.f24621686.warehouseproject.exception.WarehouseFileExcepti
 import bg.tu_varna.sit.f24621686.warehouseproject.service.FileService;
 import bg.tu_varna.sit.f24621686.warehouseproject.service.WarehouseService;
 
+
+/**
+ * Saves current warehouse data.
+ */
 public class SaveCommand {
 
     private CommandContext context;
     private WarehouseService warehouseService;
     private FileService fileService;
 
+    /**
+     * Creates SaveCommand object.
+     *
+     * @param context current application state
+     * @param warehouseService warehouse manager
+     * @param fileService file manager
+     */
     public SaveCommand(CommandContext context,
                        WarehouseService warehouseService,
                        FileService fileService) {
@@ -21,6 +32,9 @@ public class SaveCommand {
         this.fileService = fileService;
     }
 
+    /**
+     * Saves current warehouse file.
+     */
     public void execute() {
 
         try {

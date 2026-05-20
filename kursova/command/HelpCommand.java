@@ -1,7 +1,13 @@
 package bg.tu_varna.sit.f24621686.warehouseproject.command;
 
+/**
+ * Displays all available commands.
+ */
 public class HelpCommand {
 
+    /**
+     * Displays command information.
+     */
     public void execute() {
 
         System.out.println("Supported commands:");

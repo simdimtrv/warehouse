@@ -7,16 +7,30 @@ import bg.tu_varna.sit.f24621686.warehouseproject.service.WarehouseService;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Shows products added in a selected period.
+ */
 public class LogCommand {
 
     private CommandContext context;
     private WarehouseService warehouseService;
 
+    /**
+     * Creates LogCommand object.
+     *
+     * @param context current application state
+     * @param warehouseService warehouse manager
+     */
     public LogCommand(CommandContext context, WarehouseService warehouseService) {
         this.context = context;
         this.warehouseService = warehouseService;
     }
 
+    /**
+     * Shows warehouse items added in selected date period.
+     *
+     * @param input user command input
+     */
     public void execute(String input) {
         if (!context.isFileOpened()) {
             System.out.println("Please open a file first.");
